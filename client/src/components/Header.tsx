@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Header = () => (
    <div className="lg:flex lg:items-center lg:justify-between p-3 pb-4">
       <div className="min-w-0 flex">

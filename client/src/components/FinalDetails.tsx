@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { toLower } from 'lodash';
 
 // Components
@@ -9,7 +9,9 @@ import TextInput from '../common/TextInput';
 import StateMachineContext from '../StateMachineContext';
 import { ADVANCED_DETAILS_TYPE_1, ADVANCED_DETAILS_TYPE_2, CONFIRMATION, stateNamesMap } from '../states';
 
-const FinalDetails = ({ chosenMethodRef }) => {
+type FinalDetailsProps = { chosenMethodRef: { current: 'phone' | 'email' | null } };
+
+const FinalDetails = ({ chosenMethodRef }: FinalDetailsProps) => {
    const [currentState, setState] = useContext(StateMachineContext);
    return (
       <FormWrapper

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { toLower } from 'lodash';
 
 // Components
@@ -18,7 +18,12 @@ const labelsMap = {
    email: 'Email address',
 };
 
-const AdvancedDetails = ({ type, chosenMethodRef }) => {
+type AdvancedDetailsProps = {
+   type: 'phone' | 'email';
+   chosenMethodRef: { current: string | null };
+};
+
+const AdvancedDetails = ({ type, chosenMethodRef }: AdvancedDetailsProps) => {
    const [currentState, setState] = useContext(StateMachineContext);
    return (
       <FormWrapper

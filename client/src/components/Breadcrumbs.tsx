@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Disclosure } from '@headlessui/react';
 import { findIndex } from 'lodash';
 
@@ -12,15 +12,16 @@ import {
    FINAL_DETAILS,
    CONFIRMATION,
    stateNamesMap,
+   StateType,
 } from '../states';
 
 const stateSequence = [GREETINGS, BASIC_DETAILS, ADVANCED_DETAILS, FINAL_DETAILS, CONFIRMATION];
 
-function adjustState(state) {
+function adjustState(state: StateType) {
    return state === ADVANCED_DETAILS_TYPE_1 || state === ADVANCED_DETAILS_TYPE_2 ? ADVANCED_DETAILS : state;
 }
 
-function checkIsCurrentAndClickable(currentState, state) {
+function checkIsCurrentAndClickable(currentState: StateType, state: StateType) {
    const adjustedCurrentState = adjustState(currentState);
    const adjustedState = adjustState(state);
    const currentStateIndex = findIndex(stateSequence, (item) => item === adjustedCurrentState);
@@ -32,11 +33,13 @@ function checkIsCurrentAndClickable(currentState, state) {
    };
 }
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
    return classes.filter(Boolean).join(' ');
 }
 
-const Breadcrumbs = ({ chosenMethodRef }) => {
+type BreadcrumbsProps = { chosenMethodRef: { current: 'phone' | 'email' | null } };
+
+const Breadcrumbs = ({ chosenMethodRef }: BreadcrumbsProps) => {
    const [currentState, setState] = useContext(StateMachineContext);
    return (
       <Disclosure as="nav" className="bg-indigo-800">
@@ -45,7 +48,7 @@ const Breadcrumbs = ({ chosenMethodRef }) => {
                <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="hidden sm:ml-6 sm:block">
                      <div className="flex space-x-4">
-                        {stateSequence.map((item, i) => {
+                        {stateSequence.map((item: StateType, i: number) => {
                            let state = item;
                            if (item === ADVANCED_DETAILS) {
                               state =
@@ -73,7 +76,14 @@ const Breadcrumbs = ({ chosenMethodRef }) => {
    );
 };
 
-const BreadcrumbItem = ({ currentState, state, noArrow, setState }) => {
+type BreadcrumbItemProps = {
+   currentState: StateType;
+   state: StateType;
+   noArrow: boolean;
+   setState: (state: StateType) => {};
+};
+
+const BreadcrumbItem = ({ currentState, state, noArrow, setState }: BreadcrumbItemProps) => {
    const { isCurrent, isClickable } = checkIsCurrentAndClickable(currentState, state);
    return (
       <div className="text-sm font-medium" style={{ marginLeft: 0 }}>

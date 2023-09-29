@@ -6,6 +6,15 @@ export const ADVANCED_DETAILS = 'advanced-details';
 export const FINAL_DETAILS = 'final-details';
 export const CONFIRMATION = 'confirmation';
 
+export type StateType =
+   | typeof GREETINGS
+   | typeof BASIC_DETAILS
+   | typeof ADVANCED_DETAILS_TYPE_1
+   | typeof ADVANCED_DETAILS_TYPE_2
+   | typeof ADVANCED_DETAILS
+   | typeof FINAL_DETAILS
+   | typeof CONFIRMATION;
+
 export const stateNamesMap = {
    [GREETINGS]: 'Greetings',
    [BASIC_DETAILS]: 'Basic info',
@@ -16,15 +25,19 @@ export const stateNamesMap = {
    [CONFIRMATION]: 'Confirmation',
 };
 
-const statesConfig = {
+type StatesConfig = {
+   [state: string]: {
+      validNextStates: StateType[];
+      onExit?: (onExitData?: {}) => void;
+   };
+};
+
+const statesConfig: StatesConfig = {
    [GREETINGS]: {
       validNextStates: [BASIC_DETAILS],
    },
    [BASIC_DETAILS]: {
       validNextStates: [ADVANCED_DETAILS_TYPE_1, ADVANCED_DETAILS_TYPE_2, GREETINGS],
-      // onEnter: () => {
-      //    console.log(`Entering ${BASIC_DETAILS}`);
-      // },
       onExit: (onExitData) => {
          if (onExitData) {
             console.log('Posting to server...');
@@ -34,9 +47,6 @@ const statesConfig = {
    },
    [ADVANCED_DETAILS_TYPE_1]: {
       validNextStates: [FINAL_DETAILS, BASIC_DETAILS, GREETINGS],
-      // onEnter: () => {
-      //    console.log(`Entering ${ADVANCED_DETAILS_TYPE_1}`);
-      // },
       onExit: (onExitData) => {
          if (onExitData) {
             console.log('Posting to server...');
@@ -46,9 +56,6 @@ const statesConfig = {
    },
    [ADVANCED_DETAILS_TYPE_2]: {
       validNextStates: [FINAL_DETAILS, BASIC_DETAILS, GREETINGS],
-      // onEnter: () => {
-      //    console.log(`Entering ${ADVANCED_DETAILS_TYPE_2}`);
-      // },
       onExit: (onExitData) => {
          if (onExitData) {
             console.log('Posting to server...');
@@ -58,9 +65,6 @@ const statesConfig = {
    },
    [FINAL_DETAILS]: {
       validNextStates: [CONFIRMATION, ADVANCED_DETAILS_TYPE_1, ADVANCED_DETAILS_TYPE_2, BASIC_DETAILS, GREETINGS],
-      // onEnter: () => {
-      //    console.log(`Entering ${FINAL_DETAILS}`);
-      // },
       onExit: (onExitData) => {
          console.log('Posting to server...');
          console.log(onExitData);

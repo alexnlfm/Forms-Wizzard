@@ -1,11 +1,12 @@
 {
    "compilerOptions": {
-      "module": "system",
+      "module": "ESNext",
+      "moduleResolution": "Bundler",
+      "jsx": "react-jsx",
       "noImplicitAny": true,
       "removeComments": true,
       "preserveConstEnums": true,
-      "sourceMap": true,
-      "isolatedModules": true
+      "sourceMap": true
    },
    "include": ["./src/**/*"],
    "exclude": ["**/*.test.ts"]

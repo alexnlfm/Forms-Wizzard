@@ -17,7 +17,9 @@ import {
    CONFIRMATION,
 } from '../states';
 
-const FormsWizzard = ({ chosenMethodRef }) => {
+type FormsWizzardProps = { chosenMethodRef: { current: 'phone' | 'email' | null } };
+
+const FormsWizzard = ({ chosenMethodRef }: FormsWizzardProps) => {
    const [currentState] = useContext(StateMachineContext);
 
    let displayedPage = null;

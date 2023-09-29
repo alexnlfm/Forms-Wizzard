@@ -2,7 +2,7 @@
    "name": "forms-wizzard",
    "version": "1.0.1",
    "description": "Forms Wizzard App",
-   "main": "index.js",
+   "main": "App.tsx",
    "scripts": {
       "dev": "vite",
       "build": "vite build",
@@ -14,6 +14,9 @@
    "devDependencies": {
       "@headlessui/react": "^1.7.17",
       "@tailwindcss/forms": "^0.5.6",
+      "@types/lodash": "^4.14.199",
+      "@types/react": "^18.2.23",
+      "@types/react-dom": "^18.2.8",
       "@vitejs/plugin-react": "2.1.0",
       "autoprefixer": "^10.4.16",
       "eslint": "8.24.0",

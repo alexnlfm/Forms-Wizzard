@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Confirmation = () => (
    <div className="mx-auto max-w-2xl py-32">
       <div className="text-center">

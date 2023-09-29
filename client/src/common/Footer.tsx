@@ -1,13 +1,26 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 // Components
 import Button from '../common/Button';
 
 import StateMachineContext from '../StateMachineContext';
-import { GREETINGS } from '../states';
+import { GREETINGS, StateType } from '../states';
 
-const Footer = ({ mainBtnText, mainBtnHandler = null, backButton = false, prevState = null, resetButton = false }) => {
-   // eslint-disable-next-line
+type FooterProps = {
+   mainBtnText: string;
+   mainBtnHandler?: () => {};
+   backButton?: boolean;
+   prevState?: StateType;
+   resetButton?: boolean;
+};
+
+const Footer = ({
+   mainBtnText,
+   mainBtnHandler = null,
+   backButton = false,
+   prevState = null,
+   resetButton = false,
+}: FooterProps) => {
    const [_, setState] = useContext(StateMachineContext);
    return (
       <div className="mt-10 flex items-center justify-center gap-x-6">

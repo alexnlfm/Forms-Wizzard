@@ -1,6 +1,10 @@
-import React from 'react';
+type ButtonProps = {
+   text: string;
+   clickHandler?: () => {};
+   submitType?: Boolean;
+};
 
-const Button = ({ text, clickHandler = null, submitType = false }) => (
+const Button = ({ text, clickHandler = null, submitType = false }: ButtonProps) => (
    <button
       type={submitType ? 'submit' : 'button'}
       onClick={clickHandler}

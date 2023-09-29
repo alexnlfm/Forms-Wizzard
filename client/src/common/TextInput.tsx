@@ -1,6 +1,10 @@
-import React from 'react';
+type TextInputProps = {
+   name: string;
+   label: string;
+   type?: string;
+};
 
-const TextInput = ({ name, label, type = 'text' }) => (
+const TextInput = ({ name, label, type = 'text' }: TextInputProps) => (
    <div className="sm:col-span-6">
       <label htmlFor={name} className="block text-sm font-medium leading-6 text-gray-900">
          {label}

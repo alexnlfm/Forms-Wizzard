@@ -1,10 +1,17 @@
-import React from 'react';
+type FormWrapperProps = {
+   onFormSubmit: (formData: FormData) => void;
+   title: string;
+   description: string;
+   children: React.ReactNode;
+   footer: React.ReactNode;
+};
 
-const FormWrapper = ({ onFormSubmit, title, description, children, footer }) => (
+const FormWrapper = ({ onFormSubmit, title, description, children, footer }: FormWrapperProps) => (
    <form
       onSubmit={(e) => {
          e.preventDefault();
-         const formData = new FormData(e.target);
+         const formEl = e.target as HTMLFormElement;
+         const formData = new FormData(formEl);
          onFormSubmit(formData);
       }}
    >

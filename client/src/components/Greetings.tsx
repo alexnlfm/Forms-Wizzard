@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 // Components
 import Footer from '../common/Footer';
@@ -7,7 +7,6 @@ import StateMachineContext from '../StateMachineContext';
 import { BASIC_DETAILS } from '../states';
 
 const Greetings = () => {
-   // eslint-disable-next-line
    const [_, setState] = useContext(StateMachineContext);
    return (
       <>
