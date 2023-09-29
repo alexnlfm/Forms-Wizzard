@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { toLower } from 'lodash';
 
 // Components
@@ -9,10 +9,23 @@ import TextInput from '../common/TextInput';
 import StateMachineContext from '../StateMachineContext';
 import { ADVANCED_DETAILS_TYPE_1, ADVANCED_DETAILS_TYPE_2, CONFIRMATION, stateNamesMap } from '../states';
 
+async function fetchCountries() {
+   const result = await fetch(' http://localhost:3100/countries');
+   return result.json();
+}
+
 type FinalDetailsProps = { chosenMethodRef: { current: 'phone' | 'email' | null } };
 
 const FinalDetails = ({ chosenMethodRef }: FinalDetailsProps) => {
    const [currentState, setState] = useContext(StateMachineContext);
+   const [countries, setCountries] = useState([]);
+
+   useEffect(() => {
+      fetchCountries().then((data) => {
+         setCountries(data);
+      });
+   }, []);
+
    return (
       <FormWrapper
          title="Additional information"
@@ -48,9 +61,9 @@ const FinalDetails = ({ chosenMethodRef }: FinalDetailsProps) => {
                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                               focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
-                     <option>United States</option>
-                     <option>Canada</option>
-                     <option>Mexico</option>
+                     {countries.map(({ id, name }) => (
+                        <option key={id}>{name}</option>
+                     ))}
                   </select>
                </div>
             </div>
