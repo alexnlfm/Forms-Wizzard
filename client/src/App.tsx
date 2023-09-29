@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Breadcrumbs from './components/Breadcrumbs';
 import FormsWizzard from './components/FormsWizzard';
 
+// @ts-ignorets
 import { useStateMachine } from '../../fsm';
 import statesConfig, { GREETINGS } from './states';
 import StateMachineContext from './StateMachineContext';
