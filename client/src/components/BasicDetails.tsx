@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toLower } from 'lodash';
 
 // Components
@@ -9,8 +9,21 @@ import TextInput from '../common/TextInput';
 import StateMachineContext from '../StateMachineContext';
 import { ADVANCED_DETAILS_TYPE_1, ADVANCED_DETAILS_TYPE_2, stateNamesMap } from '../states';
 
+async function fetchRegistrationMethods() {
+   const result = await fetch(' http://localhost:3100/registration-methods');
+   return result.json();
+}
+
 const BasicDetails = () => {
    const [currentState, setState] = useContext(StateMachineContext);
+   const [registrationMethods, setRegistrationMethods] = useState([]);
+
+   useEffect(() => {
+      fetchRegistrationMethods().then((data) => {
+         setRegistrationMethods(data);
+      });
+   }, []);
+
    return (
       <FormWrapper
          title="Personal Information"
@@ -38,35 +51,37 @@ const BasicDetails = () => {
             <fieldset>
                <legend className="text-sm font-semibold leading-6 text-gray-900">Registration method</legend>
                <div className="mt-6 space-y-6">
-                  <div className="flex items-center gap-x-3">
-                     <input
-                        type="radio"
-                        id="phone"
-                        name="registration-method"
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                        value="phone"
-                     />
-                     <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
-                        Phone number
-                     </label>
-                  </div>
-                  <div className="flex items-center gap-x-3">
-                     <input
-                        type="radio"
-                        id="email"
-                        name="registration-method"
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                        value="email"
-                     />
-                     <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                        Email address
-                     </label>
-                  </div>
+                  {registrationMethods.length === 0 ? (
+                     <div>Loading...</div>
+                  ) : (
+                     registrationMethods.map(({ id, name, displayedName }) => (
+                        <RadioInput key={id} name={name} label={displayedName} />
+                     ))
+                  )}
                </div>
             </fieldset>
          </div>
       </FormWrapper>
    );
 };
+
+type RadioInputProps = {
+   name: string;
+   label: string;
+};
+const RadioInput = ({ name, label }: RadioInputProps) => (
+   <div className="flex items-center gap-x-3">
+      <input
+         type="radio"
+         id={name}
+         name="registration-method"
+         className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+         value={name}
+      />
+      <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
+         {label}
+      </label>
+   </div>
+);
 
 export default BasicDetails;
