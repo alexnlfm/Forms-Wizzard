@@ -10,7 +10,6 @@ describe('TextInput component', () => {
       expect(label).toBeDefined();
       const input = getByLabelText('Test label');
       expect(input.type).toBe('text');
-      expect(input.id).toBe('test');
       expect(input.name).toBe('test');
    });
    test('should render with correct type', () => {

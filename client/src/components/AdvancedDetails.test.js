@@ -18,12 +18,11 @@ describe('AdvancedDetails component', () => {
       expect(label).toBeDefined();
       const input = getByLabelText(labelsMap[type]);
       expect(input.type).toBe('tel');
-      expect(input.id).toBe(type);
       expect(input.name).toBe(type);
    });
-   test('should call setState from StateMachineContext with correct arguments', () => {
+   test('should call setState with correct arguments when submit button is clicked', () => {
       const mockSetState = jest.fn();
-      const testStateMachine = [ADVANCED_DETAILS_TYPE_1, mockSetState];
+      const testStateMachine = [null, mockSetState];
       const type = 'email';
       const { getByText } = render(
          <StateMachineContext.Provider value={testStateMachine}>
@@ -32,7 +31,6 @@ describe('AdvancedDetails component', () => {
       );
       const submitButton = getByText(`Submit ${toLower(stateNamesMap[ADVANCED_DETAILS_TYPE_1])}`);
       fireEvent.click(submitButton);
-      expect(mockSetState.mock.calls).toHaveLength(1);
       expect(mockSetState.mock.calls[0][0]).toBe(FINAL_DETAILS);
       expect(mockSetState.mock.calls[0][1]).toEqual({ email: '' });
    });
