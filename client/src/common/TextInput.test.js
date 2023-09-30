@@ -1,7 +1,7 @@
 import React from 'react';
+import { render } from '@testing-library/react';
 
 import TextInput from './TextInput';
-import { render } from '@testing-library/react';
 
 describe('TextInput component', () => {
    test('should render with correct label and default type', () => {

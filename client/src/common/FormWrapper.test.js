@@ -1,7 +1,7 @@
 import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
 
 import FormWrapper from './FormWrapper';
-import { render, fireEvent } from '@testing-library/react';
 
 describe('FormWrapper component', () => {
    test('should render with correct title and description text', () => {
