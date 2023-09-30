@@ -13,7 +13,7 @@ const titlesMap = {
    phone: 'Please enter your phone number',
    email: 'Please enter your email address',
 };
-const labelsMap = {
+export const labelsMap = {
    phone: 'Phone number',
    email: 'Email address',
 };
@@ -33,7 +33,9 @@ const AdvancedDetails = ({ type, chosenMethodRef }: AdvancedDetailsProps) => {
             const dataObj = {
                [type]: formData.get(type),
             };
-            chosenMethodRef.current = type;
+            if (chosenMethodRef?.current) {
+               chosenMethodRef.current = type;
+            }
             setState(FINAL_DETAILS, dataObj);
          }}
          footer={
