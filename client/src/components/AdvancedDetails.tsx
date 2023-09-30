@@ -7,7 +7,7 @@ import Footer from '../common/Footer';
 import TextInput from '../common/TextInput';
 
 import StateMachineContext from '../StateMachineContext';
-import { BASIC_DETAILS, FINAL_DETAILS, stateNamesMap } from '../states';
+import { BASIC_DETAILS, ADVANCED_DETAILS, FINAL_DETAILS, stateNamesMap } from '../states';
 
 const titlesMap = {
    phone: 'Please enter your phone number',
@@ -24,7 +24,7 @@ type AdvancedDetailsProps = {
 };
 
 const AdvancedDetails = ({ type, chosenMethodRef }: AdvancedDetailsProps) => {
-   const [currentState, setState] = useContext(StateMachineContext);
+   const [_, setState] = useContext(StateMachineContext);
    return (
       <FormWrapper
          title="Registration method"
@@ -40,7 +40,7 @@ const AdvancedDetails = ({ type, chosenMethodRef }: AdvancedDetailsProps) => {
          }}
          footer={
             <Footer
-               mainBtnText={`Submit ${toLower(stateNamesMap[currentState])}`}
+               mainBtnText={`Submit ${toLower(stateNamesMap[ADVANCED_DETAILS])}`}
                backButton
                prevState={BASIC_DETAILS}
                resetButton

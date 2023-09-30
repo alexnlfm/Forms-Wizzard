@@ -7,11 +7,11 @@ import Footer from '../common/Footer';
 import TextInput from '../common/TextInput';
 
 import StateMachineContext from '../StateMachineContext';
-import { ADVANCED_DETAILS_TYPE_1, ADVANCED_DETAILS_TYPE_2, stateNamesMap } from '../states';
+import { BASIC_DETAILS, ADVANCED_DETAILS_TYPE_1, ADVANCED_DETAILS_TYPE_2, stateNamesMap } from '../states';
 import { fetchData } from '../services';
 
 const BasicDetails = () => {
-   const [currentState, setState] = useContext(StateMachineContext);
+   const [_, setState] = useContext(StateMachineContext);
    const [registrationMethods, setRegistrationMethods] = useState([]);
 
    useEffect(() => {
@@ -36,7 +36,7 @@ const BasicDetails = () => {
                setState(state, dataObj);
             }
          }}
-         footer={<Footer mainBtnText={`Submit ${toLower(stateNamesMap[currentState])}`} resetButton />}
+         footer={<Footer mainBtnText={`Submit ${toLower(stateNamesMap[BASIC_DETAILS])}`} resetButton />}
       >
          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <TextInput name="first-name" label="First name" />
@@ -74,7 +74,7 @@ const RadioInput = ({ name, label }: RadioInputProps) => (
          className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
          value={name}
       />
-      <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
+      <label htmlFor={name} className="block text-sm font-medium leading-6 text-gray-900">
          {label}
       </label>
    </div>

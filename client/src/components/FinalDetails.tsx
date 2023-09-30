@@ -7,13 +7,19 @@ import Footer from '../common/Footer';
 import TextInput from '../common/TextInput';
 
 import StateMachineContext from '../StateMachineContext';
-import { ADVANCED_DETAILS_TYPE_1, ADVANCED_DETAILS_TYPE_2, CONFIRMATION, stateNamesMap } from '../states';
+import {
+   ADVANCED_DETAILS_TYPE_1,
+   ADVANCED_DETAILS_TYPE_2,
+   FINAL_DETAILS,
+   CONFIRMATION,
+   stateNamesMap,
+} from '../states';
 import { fetchData } from '../services';
 
 type FinalDetailsProps = { chosenMethodRef: { current: 'phone' | 'email' | null } };
 
 const FinalDetails = ({ chosenMethodRef }: FinalDetailsProps) => {
-   const [currentState, setState] = useContext(StateMachineContext);
+   const [_, setState] = useContext(StateMachineContext);
    const [countries, setCountries] = useState([]);
 
    useEffect(() => {
@@ -35,7 +41,7 @@ const FinalDetails = ({ chosenMethodRef }: FinalDetailsProps) => {
          }}
          footer={
             <Footer
-               mainBtnText={`Submit ${toLower(stateNamesMap[currentState])}`}
+               mainBtnText={`Submit ${toLower(stateNamesMap[FINAL_DETAILS])}`}
                backButton
                prevState={chosenMethodRef.current === 'phone' ? ADVANCED_DETAILS_TYPE_1 : ADVANCED_DETAILS_TYPE_2}
                resetButton
