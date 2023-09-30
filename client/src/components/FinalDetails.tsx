@@ -8,11 +8,7 @@ import TextInput from '../common/TextInput';
 
 import StateMachineContext from '../StateMachineContext';
 import { ADVANCED_DETAILS_TYPE_1, ADVANCED_DETAILS_TYPE_2, CONFIRMATION, stateNamesMap } from '../states';
-
-async function fetchCountries() {
-   const result = await fetch(' http://localhost:3100/countries');
-   return result.json();
-}
+import { fetchData } from '../services';
 
 type FinalDetailsProps = { chosenMethodRef: { current: 'phone' | 'email' | null } };
 
@@ -21,7 +17,7 @@ const FinalDetails = ({ chosenMethodRef }: FinalDetailsProps) => {
    const [countries, setCountries] = useState([]);
 
    useEffect(() => {
-      fetchCountries().then((data) => {
+      fetchData('countries').then((data) => {
          setCountries(data);
       });
    }, []);

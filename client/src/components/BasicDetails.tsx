@@ -8,18 +8,14 @@ import TextInput from '../common/TextInput';
 
 import StateMachineContext from '../StateMachineContext';
 import { ADVANCED_DETAILS_TYPE_1, ADVANCED_DETAILS_TYPE_2, stateNamesMap } from '../states';
-
-async function fetchRegistrationMethods() {
-   const result = await fetch(' http://localhost:3100/registration-methods');
-   return result.json();
-}
+import { fetchData } from '../services';
 
 const BasicDetails = () => {
    const [currentState, setState] = useContext(StateMachineContext);
    const [registrationMethods, setRegistrationMethods] = useState([]);
 
    useEffect(() => {
-      fetchRegistrationMethods().then((data) => {
+      fetchData('registration-methods').then((data) => {
          setRegistrationMethods(data);
       });
    }, []);
