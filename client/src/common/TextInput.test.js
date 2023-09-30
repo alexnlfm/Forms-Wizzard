@@ -13,11 +13,9 @@ describe('TextInput component', () => {
       expect(input.id).toBe('test');
       expect(input.name).toBe('test');
    });
-   test('should render with correct label and default type', () => {
+   test('should render with correct type', () => {
       const { getByLabelText } = render(<TextInput name="test" label="Test label" type="email" />);
       const input = getByLabelText('Test label');
       expect(input.type).toBe('email');
-      expect(input.id).toBe('test');
-      expect(input.name).toBe('test');
    });
 });
